@@ -1,0 +1,135 @@
+/* Code adapted from tutorial by intellisenseAI */
+/* https://github.com/Abbas-Whoami/chatbot-openai */
+/* Code adapted from work by Margaret Zhou */
+
+#current-page {
+  font-size: 18px;
+  color: green;
+  font-weight: bold;
+}
+
+.navbar-brand {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.description {
+  text-align: center;
+  font-size: 15px;
+  color: darkgrey;
+}
+
+.bot-title {
+  text-align: center; 
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: green;
+}
+
+.footer-names {
+  text-align: right;
+  right: 15px;
+  font-size: 14px;
+  color: lightgrey;
+  position: fixed;
+  bottom: 32px;
+  justify-content: center;
+  margin:0px;
+}
+
+#footer-link {
+  text-align: right;
+  bottom: 15px;
+  text-decoration: underline;
+  font-size: 12px;
+  color: lightgrey;
+  position: fixed;
+}
+
+.chat-box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  min-height: 600px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.message-input {
+  resize: none;
+  min-width: 100px;
+}
+
+#send-btn {
+  margin-top: 20px;
+}
+
+.user-message {
+/*   background-color: #007bff; */
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  padding: 5px;
+/*   border-color: grey; */
+}
+
+.bot-message {
+/*   background-color: #28a745; */
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.bot-icon,
+.user-icon {
+  width: 26px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 13px;
+}
+
+.message_container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3px;
+  margin-left: 5px;
+  margin-bottom: 2px;
+}
+
+
+.loading-gif {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin-left: 23px;
+}
+
+.name {
+  display: flex;
+  gap: 0px;
+}
+
+.name-text {
+  text-align: left;
+  margin: 0px;
+  font-size: 15px;
+  color: grey;
+}
+
+#diagram-instructions {
+  border-radius: 10px;
+  background-color: LightCyan;
+  padding: 25px;
+}
+
+#diagram-boxes {
+  padding: 15px;
+}
+
+.custom-control {
+  margin-top: 10px; /* Adjust the spacing as needed */
+  margin-left: 20px;
+  position: relative;
+  text-align: left;
+}
