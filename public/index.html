@@ -1,0 +1,126 @@
+<!-- Code Adapted from tutorial by intellisenseAI  -->
+<!-- https://github.com/Abbas-Whoami/chatbot-openai -->
+<!-- Code Adapted from work by Margaret Zhou -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Site Name -->
+    <title>Chat App</title>
+    
+    <!-- Site Default Settings -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Scripts for HTML/CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+  </head>
+
+  <body>
+    
+    <!-- Chat Input -->
+    <div class="container mt-3">
+      <div class="chat-box mt-3"></div>
+      <div class="form-group row mt-3">
+        <div class="col-sm-11">
+          <textarea
+            class="form-control"
+            rows="3"
+            placeholder="Placeholder"
+            id="message-input"
+          ></textarea> 
+        </div>
+        <div class="col-sm-1">
+          <button type="button" class="btn btn-danger" id="send-btn">Send</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Chat Display -->
+    <script>
+      const chatBox = document.querySelector(".chat-box");
+      const messageInput = document.querySelector("#message-input");
+      const sendBtn = document.querySelector("#send-btn");
+      
+      function addMessage(message, isUserMessage) {
+        const messageDiv = document.createElement("div");
+
+        if (isUserMessage) {
+          messageDiv.classList.add("user-message");
+        } else {
+          messageDiv.classList.add("bot-message");
+        }
+
+        <!-- In-Chat User Image -->
+        messageDiv.innerHTML = `
+        <div class="name">
+          <p class="name-text">You</p>
+        </div>
+        <div class="message_container">
+          <p>${message}</p>
+        </div>
+        `;
+        
+        <!-- Display User Image -->
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+
+      
+      function sendMessage() {
+        const message = messageInput.value.trim();
+
+        if (message !== "") {
+          addMessage(message, true);
+          
+          fetch("/api", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ message }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              const messageDiv = document.createElement("div");
+              messageDiv.classList.add("bot-message");
+            
+              console.log("Data from server:", data);
+              
+              const content = data.response;
+            
+              if (content) {
+
+                const nameDiv = document.createElement("div");
+                nameDiv.innerHTML = `
+                  <p class="name-text">ChatGPT</p>
+                  <div class="message_container">
+                    <p>${content}</p>
+                  </div>  
+                `;
+                
+                messageDiv.appendChild(nameDiv);
+                chatBox.appendChild(messageDiv);
+              }
+              chatBox.scrollTop = chatBox.scrollHeight;
+            });
+        }
+      }
+
+      sendBtn.addEventListener("click", sendMessage);
+      messageInput.addEventListener("keydown", (event) => {
+        if (event.keyCode === 13 && !event.shiftKey) {
+          event.preventDefault();
+          sendMessage();
+        }
+      });
+      
+      
+    </script>
+  </body>
+</html>
